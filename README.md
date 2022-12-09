@@ -1,6 +1,6 @@
 # Event calender app using redux
 
-This project can be viewed on [Event Redux React App](https://639347876f42a9000857f80d--reliable-swan-5831ce.netlify.app/profile) 
+This project can be viewed on [Event Redux React App](https://reliable-swan-5831ce.netlify.app/) 
 
 ## Available Scripts
 
