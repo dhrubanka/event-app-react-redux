@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setName, selectName, } from './profileSlice';
+import {  useDispatch } from 'react-redux';
+import { setName } from './profileSlice';
 
 
 export function Profile(){
