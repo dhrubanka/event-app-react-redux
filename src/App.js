@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './components/parts/Header'
-import { Profile} from './features/profile/Profile'
 
 
 function App() {
