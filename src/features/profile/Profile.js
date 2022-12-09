@@ -5,7 +5,7 @@ import { setName, selectName, } from './profileSlice';
 
 export function Profile(){
     const [name, setUpdateName] = useState('')
-    const profileName = useSelector(selectName)
+    // const profileName = useSelector(selectName)
     
     const dispatch = useDispatch()
     return (
