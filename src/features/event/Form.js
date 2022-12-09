@@ -9,12 +9,20 @@ const initialValues = {
     description : "",
     time: "",
     venue: "",
-    duration: ""
+    duration: "",
+}
+const validationValues = {
+  name : true,
+  description : true,
+  time: true,
+  venue:true,
+  duration:true,
 }
 
 export default function Form() {
 
  const [values,setValues] = useState(initialValues)
+ const [validation, setValidation] = useState(validationValues)
  const dispatch = useDispatch()
 
  console.log(values)
@@ -26,9 +34,32 @@ export default function Form() {
         [name]: value
     })
  }
+ function checkValidation(){
+  let check = true
+  for(const key in values){
+     console.log(values[key])
+     if(values[key]=== ''){
+      setValidation(validation => ({
+        ...validation,
+        [key] : false
+      }))
+      check = false
+    }else{
+      setValidation(validation => ({
+        ...validation,
+        [key] : true
+      }))
+    }
+   
+  }
+  console.log(validation)
+  return check
+ }
  function handleOnClick(){
-  dispatch(eventAdded(values))
-  setValues(initialValues)
+  if(checkValidation()){
+    dispatch(eventAdded(values))
+    setValues(initialValues)
+  }
  }
 
  
@@ -45,6 +76,7 @@ export default function Form() {
               onChange={handleInputChange}
               name="name"
                          />
+            {!validation.name && <span>Please enter a event name</span>}
           </div>
           <div className='input-group mb-2 p-1'>
             <span class="input-group-text">Description of the Event</span>
@@ -54,6 +86,7 @@ export default function Form() {
               onChange={handleInputChange}
               name="description" 
             />
+            {!validation.description && <span>Please enter event description</span>}
           </div>
           <div className='input-group mb-2 p-1'>
             <span class="input-group-text">Time of the Event</span>
@@ -63,6 +96,7 @@ export default function Form() {
               onChange={handleInputChange}
               name="time" 
             />
+            {!validation.time && <span>Please enter time of the event </span>}
           </div>
           <div className='input-group mb-2 p-1'>
             <span class="input-group-text">Venue</span>
@@ -73,6 +107,7 @@ export default function Form() {
             name="venue"
             label="Venue"
           />
+          {!validation.venue && <span>Please enter the venue </span>}
           </div>
           <div className='input-group mb-2 p-1'>
             <span class="input-group-text">Duration</span>
@@ -83,6 +118,7 @@ export default function Form() {
             name="duration"
             label="Duration of the Event"
           />
+          {!validation.duration && <span>Please enter duration of the event</span>}
           </div>
           <button type='button' className='btn btn-primary m-1' onClick={handleOnClick }> Add </button>
         </form>
