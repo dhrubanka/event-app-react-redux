@@ -1,6 +1,6 @@
-# Getting Started with Create React App and Redux
+# Event calender app using redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This project can be viewed on [Event Redux React App](https://639347876f42a9000857f80d--reliable-swan-5831ce.netlify.app/profile) 
 
 ## Available Scripts
 
