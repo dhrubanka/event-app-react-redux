@@ -1,6 +1,5 @@
 import React from "react";
 import Event from "../features/event/Event";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import FormComponent from "../features/event/Form"
 
