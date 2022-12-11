@@ -8,9 +8,11 @@ export function Events(){
     const [isVisible, setIsVisible] = React.useState(false);
 
     const renderedEvents = events.map(event => {
+        // console.log(event);
      return <Event 
         key={event.id}
         name={event.name}
+         time={event.time.toDateString()}
         venue={event.venue}
         duration={event.duration}
         description={event.description}

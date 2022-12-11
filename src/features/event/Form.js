@@ -2,19 +2,20 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { eventAdded } from './eventSlice'
 import { nanoid } from '@reduxjs/toolkit'
+import DateTimePicker from 'react-datetime-picker';
 
 const initialValues = {
     id : nanoid(),
-    name : "ghgh",
+    name : "",
     description : "",
-    time: "",
+    time: new Date(),
     venue: "",
     duration: "",
 }
 const validationValues = {
   name : true,
   description : true,
-  time: true,
+  
   venue:true,
   duration:true,
 }
@@ -34,6 +35,15 @@ export default function Form() {
         [name]: value
     })
  }
+ function handleDateChange(date) {
+  // Use the second argument of the useState hook to update the state
+  setValues(prevState => ({
+    ...prevState,
+    [values.time]: date
+  }));
+}
+
+
  function checkValidation(){
   let check = true
   for(const key in values){
@@ -55,6 +65,7 @@ export default function Form() {
   console.log(validation)
   return check
  }
+
  function handleOnClick(){
   if(checkValidation()){
     dispatch(eventAdded(values))
@@ -90,12 +101,13 @@ export default function Form() {
           </div>
           <div className='input-group mb-2 p-1'>
             <span class="input-group-text">Time of the Event</span>
-            <input
+            {/* <input
             className='form-control'
               value={values.time}
               onChange={handleInputChange}
               name="time" 
-            />
+            /> */}
+            <DateTimePicker  onChange={handleDateChange} value={values.time} />
             {!validation.time && <span>Please enter time of the event </span>}
           </div>
           <div className='input-group mb-2 p-1'>
@@ -113,6 +125,7 @@ export default function Form() {
             <span class="input-group-text">Duration</span>
           <input
            className='form-control'
+           type="number"
             value={values.duration}
             onChange={handleInputChange}
             name="duration"
