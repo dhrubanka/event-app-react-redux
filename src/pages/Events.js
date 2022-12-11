@@ -16,7 +16,7 @@ export function Events(){
         description={event.description}
     />})
     return (
-        <div>
+        <div className="container">
             <div className="d-flex justify-content-between m-4">
                 <h1 className="p-2">List of events </h1> 
                 {/* <Link className="btn btn-success m-3" to="/">Add</Link> */}

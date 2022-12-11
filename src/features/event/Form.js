@@ -5,7 +5,7 @@ import { nanoid } from '@reduxjs/toolkit'
 
 const initialValues = {
     id : nanoid(),
-    name : "",
+    name : "ghgh",
     description : "",
     time: "",
     venue: "",
@@ -39,10 +39,10 @@ export default function Form() {
   for(const key in values){
      console.log(values[key])
      if(values[key]=== ''){
-      setValidation(validation => ({
+      setValidation({
         ...validation,
         [key] : false
-      }))
+      })
       check = false
     }else{
       setValidation(validation => ({

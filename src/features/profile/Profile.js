@@ -9,9 +9,9 @@ export function Profile(){
     
     const dispatch = useDispatch()
     return (
-        <div>
-            <div className='d-flex flex-row'>
-              <label className="form-label m-1">Name</label>
+        <div className='d-flex justify-content-center'>
+            <div className='card flex-row mt-5'>
+              <label className="form-label m-1">Update  Name</label>
                 <input className="form-control m-1" value={name} onChange={(e)=>setUpdateName(e.target.value)} />
                 <button className='btn btn-primary m-1' onClick={()=> dispatch(setName(name))}>Add</button>
             </div>
