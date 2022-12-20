@@ -14,14 +14,7 @@ export const profileSlice = createSlice({
         }
     }
 })
-function loadEvents(){
-    let arrayString = localStorage.getItem('events') || '[]';
 
-    // Convert the string back into an array
-    let events = JSON.parse(arrayString);
-
-    return events
-}
 export const {setName} = profileSlice.actions
 
 export const selectName = (state) => state.profile.value
