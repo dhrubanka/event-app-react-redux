@@ -5,18 +5,28 @@ import FormComponent from "../features/event/Form"
 
 export function Events(){
     const events = useSelector(state => state.event)
+    // console.log(localStorage.getItem('events'));
+    // const events = localStorage.getItem('events');
     const [isVisible, setIsVisible] = React.useState(false);
 
-    const renderedEvents = events.map(event => {
-        // console.log(event);
-     return <Event 
-        key={event.id}
-        name={event.name}
-         time={event.time.toDateString()}
-        venue={event.venue}
-        duration={event.duration}
-        description={event.description}
-    />})
+ 
+
+     let   renderedEvents = events.map(event => {
+            console.log(event);
+            let dateTime = new Date(event.time)
+
+            return <Event 
+                key={event.id}
+                name={event.name}
+                time={dateTime.toLocaleString()}
+                venue={event.venue}
+                duration={event.duration}
+                description={event.description}
+                />
+        })
+    
+
+
     return (
         <div className="container">
             <div className="d-flex justify-content-between m-4">
