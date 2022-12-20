@@ -8,7 +8,7 @@ const initialValues = {
   id: nanoid(),
   name: "",
   description: "",
-  time: new Date(),
+  time: "",
   venue: "",
   duration: "",
 }
@@ -20,26 +20,32 @@ const validationValues = {
   time: true,
   duration: true,
 }
-function checkSameEvent(date){
-  let arrayString = localStorage.getItem('events');
 
+function checkSameEvent(date, duration){
+  let arrayString = localStorage.getItem('events');
   // Convert the string back into an array
   let eventsArray = JSON.parse(arrayString);
-  console.log("Function Check Same Events");
-  // console.log(eventsArray);
-  console.log(date);
-  // console.log(new Date(date));
-  // eventsArray.map(event => {
-  //   console.log(event.time);
-  //   console.log(new Date(event.time))
-  //   return 
-  // })
-  const found = eventsArray.filter(event=> new Date(event.time) === date)
- 
-  // console.log('Found :', found.length);
-  // console.log("Function Check Same Events");
-  // return found.length
+  
+  //calculate the end time of the event
+  let receivedDateEndTime = new Date(date.getTime() + duration * 60000)
+  
+  // Filter events by the given time and duration
+  const found = eventsArray.filter(event => { 
+    let eventStartTime = new Date(event.time)
+    let eventEndTime = new Date(new Date(event.time).getTime() + event.duration * 60000)
+    
+    let receivedDateStartTime = date
+    
+    // Check if the given time is within the time range of the existing event
+    return (receivedDateStartTime.getTime() >= eventStartTime.getTime() && receivedDateStartTime.getTime() < eventEndTime) ||
+    // Check if the end time of the event is within the time range of the existing even
+      (receivedDateEndTime.getTime() > eventStartTime.getTime() &&  receivedDateEndTime.getTime() < eventEndTime) 
+
+  })
+  
+  return found.length
 }
+
 export default function Form() {
   const [values, setValues] = useState(initialValues)
   const [validation, setValidation] = useState(validationValues)
@@ -62,22 +68,22 @@ export default function Form() {
   }
 
 
-  function checkValidation() {
+function checkValidation() {
     let check = true
     let updateValidation = {}
     for (const key in values) {
      switch (key) {
         case 'time':  const presentDate = new Date()
-
                       if(values[key] < presentDate){
                         updateValidation[key] = false
                         check = false
-
                       }else{
-                        if(localStorage.getItem('events')){ 
+                        if(localStorage.getItem('events') && checkSameEvent(values[key], values.duration)>0){ 
                           updateValidation[key] = false
+                          check = false
                         }else{
-                          updateValidation[key] = true}
+                          updateValidation[key] = true
+                        }
                       }
                       break;
       
@@ -90,50 +96,20 @@ export default function Form() {
                       }
                       break;
       }
-
     }
     setValidation(updateValidation)
     return check
-  }
+}
 
-
-
-  function handleOnClick() {
-    
+function handleOnClick() {
     if (checkValidation()) {
-     
-      // if (localStorage.getItem('events') === null) {
-      //   // values.time = values.time.toLocaleString()
-      //   // Convert the array to a string
-      //   let formValues = JSON.stringify([values]);
-
-      //   // Save the array to local storage
-      //   localStorage.setItem('events', formValues);
-
-      // }else{
-      //    // Get the array from local storage
-      //   let formValues = JSON.parse(localStorage.getItem('events'));
-       
-      //   // values.time = values.time.toLocaleString()
-      //   // Push a new item to the array
-      //   formValues.push(values);
-
-      //   // Save the updated array back to local storage
-      //   localStorage.setItem('events', JSON.stringify(formValues));
-          
-      // }
-    
       dispatch(eventAdded(values))
       setValues(initialValues)
     }
-
   }
 
-  console.log(validation)
-
-  return (
+return (
     <div className='container d-flex justify-content-center' >
-
       <form className='card m-4' id='form'>
         <h3 className='text-center m-2'>Form </h3>
         <div className='input-group mb-2 p-1'>
