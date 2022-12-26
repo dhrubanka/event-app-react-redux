@@ -17,9 +17,14 @@ const validationValues = {
   name: true,
   description: true,
   venue: true,
-  time: true,
+  time: {
+    notEmpty: true,
+    past: true,
+    collision: true
+  },
   duration: true,
 }
+
 
 function checkSameEvent(date, duration){
   let arrayString = localStorage.getItem('events');
@@ -49,6 +54,7 @@ function checkSameEvent(date, duration){
 export default function Form() {
   const [values, setValues] = useState(initialValues)
   const [validation, setValidation] = useState(validationValues)
+
   const dispatch = useDispatch()
 
   function handleInputChange(e) {
@@ -74,15 +80,36 @@ function checkValidation() {
     for (const key in values) {
      switch (key) {
         case 'time':  const presentDate = new Date()
+                      if(values[key] === ''){
+                        updateValidation[key] = {
+                          notEmpty: false,
+                          past: true,
+                          collision: true
+                        }
+                        check = false
+                        break
+                      }
                       if(values[key] < presentDate){
-                        updateValidation[key] = false
+                        updateValidation[key] = {
+                          notEmpty: true,
+                          past: false,
+                          collision: true
+                        }
                         check = false
                       }else{
                         if(localStorage.getItem('events') && checkSameEvent(values[key], values.duration)>0){ 
-                          updateValidation[key] = false
+                          updateValidation[key] = {
+                            notEmpty: true,
+                            past: true,
+                            collision: false
+                          }
                           check = false
                         }else{
-                          updateValidation[key] = true
+                          updateValidation[key] = {
+                            notEmpty: true,
+                            past: true,
+                            collision: true
+                          }
                         }
                       }
                       break;
@@ -105,8 +132,10 @@ function handleOnClick() {
     if (checkValidation()) {
       dispatch(eventAdded(values))
       setValues(initialValues)
+      
     }
   }
+console.log("validation", validation);
 
 return (
     <div className='container d-flex justify-content-center' >
@@ -136,7 +165,11 @@ return (
           <span className="input-group-text">Time of the Event</span>
         
           <DateTimePicker className='form-control' onChange={handleDateChange} value={values.time} />
-          {!validation.time && <span className='input-group m-2 text-danger'>Please enter time of the event in the future</span>}
+          { (!validation.time.notEmpty && <span className='input-group m-2 text-danger'>Please enter time of the event in the future</span>)
+          ||
+          (!validation.time.past && <span className='input-group m-2 text-danger'>Event cannot be in the Past</span>)
+          ||
+          (!validation.time.collision && <span className='input-group m-2 text-danger'>Timeslot is already taken, please select another time slot</span>)}
         </div>
         <div className='input-group mb-2 p-1'>
           <span className="input-group-text">Venue</span>
