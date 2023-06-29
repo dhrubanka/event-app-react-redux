@@ -1,46 +1,62 @@
-# Event calender app using redux
+# Event-based Redux App
 
-This project can be viewed on [Event Redux React App](https://reliable-swan-5831ce.netlify.app/) 
+Demo Link: [Event-based Redux App Demo](https://reliable-swan-5831ce.netlify.app/)
 
-## Available Scripts
+This is a README file for an event-based Redux app. The app allows users to add events and store them using Redux state management.
 
-In the project directory, you can run:
+![Redux Architecture and Workflow](https://d33wubrfki0l68.cloudfront.net/01cc198232551a7e180f4e9e327b5ab22d9d14e7/b33f4/assets/images/reduxdataflowdiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To get started with the app, follow the instructions below.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+Before running the app, ensure that you have the following software installed:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js
+- NPM (Node Package Manager)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository to your local machine.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Open a terminal and navigate to the project's root directory.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Install the project dependencies by running the following command:
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Start the development server by running the following command:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Open your web browser and navigate to `http://localhost:3000` to access the app.
 
-## Learn More
+Alternatively, you can access the hosted app using the following link: [Event-based Redux App](https://reliable-swan-5831ce.netlify.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Code Overview
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app consists of the following files:
+
+- `store.js`: This file configures the Redux store and combines the reducers for the profile and event features.
+
+- `event-slice.js`: This file contains the event slice, which defines the initial state and action reducers for handling events. It also includes a helper function to load events from local storage.
+
+- `form.js`: This file contains a React component that displays a form for adding events. It imports the `eventAdded` action creator from the event slice and uses the `useState` and `useDispatch` hooks.
+
+## Functionalities
+
+The app provides the following functionalities:
+
+- Adding events: The `form.js` component renders a form where users can enter details for an event. When the form is submitted, the `eventAdded` action is dispatched, and the event data is stored in the Redux store and local storage.
+
+- Loading events: The app automatically loads events from local storage when it starts. The `loadEvents` helper function in the event slice retrieves the events from local storage and initializes the state.
+
+## Contributions
+
+Contributions to the project are welcome. If you find any issues or want to add new features, feel free to submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
