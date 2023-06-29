@@ -25,13 +25,13 @@ Before running the app, ensure that you have the following software installed:
 
 3. Install the project dependencies by running the following command:
 
-### npm install
+### `npm install`
 
 ### Usage
 
 1. Start the development server by running the following command:
 
-### npm start
+### `npm start`
 
 
 2. Open your web browser and navigate to `http://localhost:3000` to access the app.
